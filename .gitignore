@@ -1,0 +1,109 @@
+# GNU Emacs .gitignore
+# Generated for Emacs configuration repository
+
+# --- AUTO-GENERATED FILES ---
+custom.el
+custom.el~
+*.elc
+*.el~
+
+# --- BACKUP AND AUTO-SAVE FILES ---
+backups/
+auto-save-list/
+*.backup
+*.bak
+*.tmp
+*~
+
+# --- PACKAGE MANAGEMENT ---
+elpa/
+straight/
+straight/build/
+straight/repos/
+straight/versions/
+quelpa/
+
+# --- SERVER FILES ---
+*.server
+*.pid
+emacs.desktop
+emacs.desktop.lock
+
+# --- COMPILED FILES ---
+*.eln
+*.el.gz
+*.tar.gz
+*.zip
+
+# --- SESSION AND HISTORY ---
+session.*
+recentf
+projectile-bookmarks.eld
+places
+savehist
+
+# --- LSP AND LANGUAGE SERVER ---
+.lsp-session-v1/
+.ccls-cache/
+compile_commands.json
+bear/
+
+# --- ORG-MODE SPECIFIC ---
+*.org_archive
+*.org-timestamps
+*.org-id-locations
+
+# --- TEMPORARY FILES ---
+#auto/
+#undo-tree-history/
+#transient/
+*.swp
+*.swo
+*#
+
+# --- PLATFORM SPECIFIC ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- CUSTOM CONFIGURATIONS ---
+# Keep your custom configurations out of version control
+# custom.el (already listed above)
+# settings/
+# local/
+
+# --- LOG FILES ---
+*.log
+*.out
+
+# --- NODE/WEBPACK (for web development packages) ---
+node_modules/
+package-lock.json
+yarn.lock
+
+# --- PYTHON (for python-mode packages) ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# --- RUST (for rust-mode packages) ---
+target/
+Cargo.lock
+
+# --- GO (for go-mode packages) ---
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# --- MISC ---
+*.orig
+*.rej
+*~
