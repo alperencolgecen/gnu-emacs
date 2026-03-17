@@ -263,6 +263,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-Prepared by Alperen Colgecen
+Prepared by Alperen Çölgeçen
 
 </div> 
