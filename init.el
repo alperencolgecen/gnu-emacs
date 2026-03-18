@@ -6,6 +6,6 @@
   (load custom-file))
 
 ;;; --- 2. LOAD MODULES ---
-(dolist (module '("packages" "performance" "ui" "font" "editor" "theme" "plugins" "keybindings" "backups" "snippets"))
+(dolist (module '("packages" "performance" "layout" "ui" "font" "editor" "theme" "plugins" "keybindings" "backups" "snippets"))
   (load (expand-file-name (concat module ".el") user-emacs-directory)))
 
