@@ -40,37 +40,55 @@
 - **Enhanced Search** - Wrap-around with match counting
 - **Smart Navigation** - Ace-window and Avy for fast movement
 
+### 🚀 **Modern Module System**
+- **Layout Management** - Frame layout, margins, window dividers
+- **Color Palettes** - Material Design, Nord, and Neon color schemes
+- **Splash Screen** - Minimalist startup with quick actions
+- **Help System** - Echo area messages and context-sensitive help
+- **Session Management** - Auto-save, recovery, and crash protection
+
 ## 📁 Architecture
 
-This configuration uses a **modular architecture** with 8 specialized modules:
+This configuration uses a **modular architecture** with 13 specialized modules:
 
 ```
 .emacs.d/
 ├── init.el              # Bootstrap and module loader (12 lines)
-├── modules/
-│   ├── packages.el      # Package management and archives
-│   ├── performance.el  # Startup and runtime optimizations
-│   ├── ui.el          # Interface and visual settings
-│   ├── font.el        # Typography and line numbers
-│   ├── editor.el      # Core editing behaviors
-│   ├── theme.el       # Doom theme and custom faces
-│   ├── plugins.el     # Third-party package configurations
-│   └── keybindings.el # Custom key bindings and functions
-├── custom.el          # User customizations (auto-generated)
-├── .gitignore         # Version control exclusions
-└── LICENSE            # MIT License
+├── packages.el          # Package management and archives
+├── performance.el      # Startup and runtime optimizations
+├── layout.el            # Frame layout, margins, window dividers
+├── colors.el            # Material, Nord, and Neon color palettes
+├── splash.el            # Minimalist startup screen
+├── help.el              # Echo area help system
+├── ui.el               # Interface and visual settings
+├── font.el             # Typography and line numbers
+├── editor.el           # Core editing behaviors
+├── theme.el            # Doom theme and custom faces
+├── plugins.el          # Third-party package configurations
+├── keybindings.el      # Custom key bindings and functions
+├── backups.el          # Backup and session management
+├── snippets.el         # Code snippets
+├── custom.el           # User customizations (auto-generated)
+├── .gitignore          # Version control exclusions
+└── LICENSE             # MIT License
 ```
 
 ### 🚀 **Module Loading Order**
 
 1. **packages** - Sets up package.el and archives
 2. **performance** - Applies startup optimizations
-3. **ui** - Configures interface elements
-4. **font** - Sets up typography
-5. **editor** - Core editing behaviors
-6. **theme** - Loads doom-vibrant theme
-7. **plugins** - Configures third-party packages
-8. **keybindings** - Sets up custom key bindings
+3. **layout** - Frame layout, margins, window dividers
+4. **colors** - Color palettes and utilities
+5. **splash** - Startup screen configuration
+6. **help** - Echo area help system
+7. **ui** - Configures interface elements
+8. **font** - Sets up typography
+9. **editor** - Core editing behaviors
+10. **theme** - Loads doom-vibrant theme
+11. **plugins** - Configures third-party packages
+12. **keybindings** - Sets up custom key bindings
+13. **backups** - Backup and session management
+14. **snippets** - Code snippets
 
 ## 🎯 Key Bindings
 
@@ -97,6 +115,33 @@ This configuration uses a **modular architecture** with 8 specialized modules:
 ### 🛠️ **Development**
 - `C-x g` - Magit status
 - `F8` - Toggle Treemacs
+
+### 🎨 **Color Palette Commands** (`C-c c`)
+- `m` - Preview Material Design colors
+- `n` - Preview Nord colors
+- `e` - Preview Neon colors
+- `t` - Apply Nord theme
+
+### 📊 **Backup & Session** (`C-c b`)
+- `l` - List all backups
+- `d` - Diff with latest backup
+- `r` - Restore from backup
+- `w` - Save session
+- `x` - Clear session
+- `R` - Recover session
+
+### 💡 **Help System** (`C-c h`)
+- `b` - Buffer information
+- `c` - Cursor position
+- `g` - Git branch
+- `r` - Recent command
+- `k` - Key binding description
+- `p` - Project information
+- `s` - System information
+
+### 🖥️ **Layout Management**
+- `M-x my/toggle-fullscreen` - Toggle fullscreen
+- `M-x my/reset-layout` - Reset window layout
 
 ## 🎨 Theme Configuration
 
@@ -175,22 +220,24 @@ If you're coming from VS Code, this configuration includes familiar workflows:
 ## ⚙️ Customization
 
 ### **Adding New Modules**
-1. Create `modules/my-module.el`
-2. Add to `init.el` module list
+1. Create `my-module.el` in `.emacs.d/` directory
+2. Add to `init.el` module list in the correct order
 3. Follow the established patterns:
    ```elisp
    ;;; my-module.el --- Module Description
    
    ;; Configuration here
+   (provide 'my-module)
+   ;;; my-module.el ends here
    ```
 
 ### **Modifying Theme**
-Edit `modules/theme.el` to adjust colors:
+Edit `theme.el` to adjust colors or use `colors.el` utilities:
 ```elisp
-(custom-set-faces
- '(mode-line ((t (:foreground "#YOUR_COLOR" :background "#YOUR_BG"))))
- ;; Add more face definitions
-)
+;; Use color utilities
+(my/get-material-color 'blue 500)  ; => "#2196F3"
+(my/get-nord-color 'nord8)         ; => "#88C0D0"
+(my/get-neon-color 'cyan)          ; => "#00FFFF"
 ```
 
 ## 🐛 Troubleshooting
@@ -253,11 +300,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📊 Statistics
 
-- **Total Lines:** ~1,200 (across all modules)
-- **Modules:** 8 specialized files
-- **Key Bindings:** 20+ custom bindings
+- **Total Lines:** ~2,000 (across all modules)
+- **Modules:** 13 specialized files
+- **Key Bindings:** 40+ custom bindings
 - **Packages:** 15+ configured packages
 - **Startup Time:** ~1.5 seconds
+- **Color Palettes:** 3 complete systems (Material, Nord, Neon)
+- **Session Features:** Auto-save, recovery, crash protection
 
 ---
 
