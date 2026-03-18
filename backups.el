@@ -294,4 +294,86 @@ setq vc-make-backup-files t)        ; Also backup version-controlled files
    ((< size (* 1024 1024 1024)) (format "%.1fMB" (/ size (* 1024.0 1024))))
    (t (format "%.1fGB" (/ size (* 1024.0 1024 1024))))))
 
+;;; --- 8. SESSION MANAGEMENT ---
+
+;; Desktop save for session persistence
+(setq desktop-dirname (expand-file-name "~/.emacs.d/desktop/")
+      desktop-base-file-name "desktop"
+      desktop-base-lock-name "desktop.lock"
+      desktop-path (list desktop-dirname)
+      desktop-save t
+      desktop-files-not-to-save "^$" ; Don't save empty files
+      desktop-load-locked-desktop nil
+      desktop-auto-save-timeout 300) ; Auto-save every 5 minutes
+
+;; Ensure desktop directory exists
+(unless (file-exists-p desktop-dirname)
+  (make-directory desktop-dirname t))
+
+;; Enable desktop save mode
+(desktop-save-mode 1)
+
+;; Recent files management
+(setq recentf-save-file (expand-file-name "~/.emacs.d/recentf")
+      recentf-max-saved-items 100
+      recentf-max-menu-items 25
+      recentf-exclude '("^/tmp/" "^/ssh:" "^/sudo:" "\\.emacs\\.d/" "\\.git/")
+      recentf-auto-save-timer (run-with-idle-timer 600 t 'recentf-save-list))
+
+;; Enable recent files mode
+(recentf-mode 1)
+
+;; Session management functions
+(defun my/session-save ()
+  "Manually save current session."
+  (interactive)
+  (desktop-save-in-desktop-dir)
+  (recentf-save-list)
+  (message "Session saved"))
+
+(defun my/session-clear ()
+  "Clear saved session and recent files."
+  (interactive)
+  (when (y-or-n-p "Clear all saved sessions and recent files? ")
+    (desktop-clear)
+    (when (file-exists-p recentf-save-file)
+      (delete-file recentf-save-file))
+    (message "Session cleared")))
+
+(defun my/session-recover ()
+  "Recover last session if available."
+  (interactive)
+  (if (file-exists-p (expand-file-name desktop-base-file-name desktop-dirname))
+      (progn
+        (desktop-read)
+        (message "Session recovered"))
+    (message "No saved session found")))
+
+;; Auto-save session on exit
+(defun my/session-auto-save-on-exit ()
+  "Auto-save session when exiting Emacs normally."
+  (when (and desktop-save-mode
+             (not (frame-parameter nil 'window-id))
+             (not (bound-and-true-p server-mode)))
+    (desktop-save-in-desktop-dir)))
+(add-hook 'kill-emacs-hook 'my/session-auto-save-on-exit)
+
+;; Enhanced recovery after crash
+(defun my/session-check-crash-recovery ()
+  "Check for crash recovery on startup."
+  (when (file-exists-p (expand-file-name desktop-base-lock-name desktop-dirname))
+    (when (y-or-n-p "Previous session crashed. Recover session? ")
+      (delete-file (expand-file-name desktop-base-lock-name desktop-dirname))
+      (desktop-read))))
+
+;; Check for crash recovery on startup
+(add-hook 'after-init-hook 'my/session-check-crash-recovery)
+
+;;; --- 9. ENHANCED KEYBINDINGS ---
+
+;; Add session management to backup keymap
+(define-key my/backup-keymap (kbd "w") 'my/session-save)
+(define-key my/backup-keymap (kbd "x") 'my/session-clear)
+(define-key my/backup-keymap (kbd "R") 'my/session-recover)
+
 ;;; backups.el ends here
